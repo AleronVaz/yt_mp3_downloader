@@ -9,7 +9,7 @@ def download_audio(url):
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'outtmpl': '%(title)s.%(ext)s',
+        'outtmpl': '%(playlist_title)s/%(title)s.%(ext)s',
     }
 
     print(f"--- Accessing URL: {url} ---")

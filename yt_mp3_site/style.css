@@ -1,0 +1,135 @@
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+    background-color: #1a1a1a; 
+    color: white; 
+    margin: 0;
+    display: flex;
+    height: 100vh; /* Takes full viewport height */
+    padding: 20px; /* Gives some space from the edges */
+    box-sizing: border-box;
+    flex-direction: column; /* Stacks content vertically */
+    align-items: center; /* Centers content horizontally */
+    justify-content: flex-start; /* Aligns content to the top */
+}
+.container {
+    text-align: center;
+    background-color: white;
+    color: #1a1a1a;
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 3px solid #ff0000;
+    box-shadow: 0px 8px 30px rgba(255, 0, 0, 0.4);
+    max-width: 600px;
+    width: 100%;
+    margin-top: 50px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.container h1 {
+    margin-top: 0;
+    font-size: 2rem;
+    color: #cc0000; /* Darker red for the title text */
+}
+
+
+.container p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #555; 
+}
+
+/* 5. The Converter Form Area (Input + Button) */
+.converter-box {
+    display: flex; /* Lines up input and button horizontally */
+    gap: 10px; /* Space between them */
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+/* 6. Input Field (Enter Youtube URL) */
+.converter-box input {
+    flex-grow: 1; /* Makes input take remaining space */
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+/* 7. Input focus state (When user clicks in the box) */
+.converter-box input:focus {
+    outline: none;
+    border-color: #ff0000; /* Highlight in red when active */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+/* 8. Download Button (Convert To MP3) */
+.converter-box button {
+    padding: 12px 24px;
+    background-color: #ff0000; /* Red button background */
+    color: white; /* White text on button */
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    
+    
+}
+
+/* 9. Button hover state */
+.converter-box button:hover {
+    background-color: #b30000; /* Darker red on hover */
+    transform: translateY(-3px);
+}
+.footer-note {
+    font-size: 1rem;
+    color: #777; 
+    margin-top: 1rem;
+}
+
+.description {
+    max-width: 700px;
+    width: 100%;
+    margin-top: 35px; /* Space between the white box and the About text */
+    text-align: left; 
+    background-color: #252525;
+    border-radius: 10px;
+    border-left: 5px solid #ff0000; /* Red accent on the left */
+    padding: 10px 35px;
+    box-sizing: border-box;
+}
+.description h2 {
+    color: #ff0000;
+    margin-top: 0;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.description h3 {
+    color: #eee;
+    font-size: 1.7rem;
+    margin-top: 1.5rem;
+}
+
+.description p {
+    color: #ccc;
+    line-height: 1.6; 
+    font-size: 1.1rem;
+}
+
+.description ul {
+    color: #ccc;
+    padding-left: 20px;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.description li::marker {
+    color: #ff0000; /* Makes the bullet points red */
+}

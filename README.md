@@ -1,31 +1,28 @@
 # 🎵 YouTube to MP3 Downloader
+A full-stack project featuring a Python backend for audio extraction and a modern, responsive web interface.
 
-A lightweight, efficient Python script to download audio from YouTube videos and convert them directly into high-quality MP3 files. Built using `yt-dlp` and `FFmpeg`.
+## 🚀 Project Overview
+This repository contains a dual-interface system:
+1. **CLI Tool:** A Python script (`main.py`) for local command-line downloads.
+2. **Web Interface:** A clean, mobile-responsive frontend (HTML/CSS) designed for cloud deployment.
 
-## 🚀 Features
-- Downloads highest quality audio available.
-- Automatically converts files to `.mp3` format.
-- Cleans up temporary files (like `.webm` or `.m4a`) after conversion.
-- Easy-to-use Command Line Interface (CLI).
+## 🌐 Live Site
+*(Coming soon via GitHub Pages / Render)*
 
----
+## 🛠️ Tech Stack
+- **Frontend:** HTML5, CSS3 (Mobile-First Design), JavaScript (Planned).
+- **Backend:** Python 3.x, Flask (Planned).
+- **Core Engine:** `yt-dlp` & `FFmpeg`.
 
-## 🛠️ Prerequisites
+## 📂 Structure
+- `index.html`: The main dashboard for the converter.
+- `style.css`: Custom Red & White theme with mobile responsiveness.
+- `js/`: Directory for frontend interactivity logic.
+- `main.py`: The core Python script using `yt-dlp` to handle downloads.
 
-Before running this script, ensure you have the following installed on your system:
+## 📦 Local Installation
 
-1. **Python 3.7+**
-2. **FFmpeg**: Required for audio conversion. 
-   - *Windows Tip:* Download from gyan.dev and add the `/bin` folder to your System Path.
-3. **Node.js**: Recommended as a JavaScript runtime for `yt-dlp` to handle YouTube's signature extraction.
-
----
-
-## 📦 Installation & Setup
-
-Follow these steps to get your local development environment running:
-
-1. **Clone the repository:**
+1. **Clone the repo:**
    ```bash
-   git clone [https://github.com/AleronVaz/Mp3_downloader.git](https://github.com/AleronVaz/Mp3_downloader.git)
-   cd Mp3_downloader
+   git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
+   cd yt_mp3_downloader

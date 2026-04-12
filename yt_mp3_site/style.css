@@ -133,3 +133,36 @@ body {
 .description li::marker {
     color: #ff0000; /* Makes the bullet points red */
 }
+
+/* Mobile Compatibility (Screens 600px or smaller) */
+@media (max-width: 600px) {
+    body {
+        padding: 10px; /* Less space around the edges on small screens */
+    }
+
+    .container {
+        padding: 1.5rem; /* Shrink inner padding so content fits */
+        margin-top: 20px; /* Bring it closer to the top */
+        max-width: 320px;
+    }
+
+    .container h1 {
+        font-size: 1.5rem; /* Smaller title so it doesn't wrap weirdly */
+    }
+
+    .converter-box {
+        flex-direction: column; /* Stack Input and Button vertically */
+        gap: 15px;
+    }
+
+    .converter-box input, 
+    .converter-box button {
+        width: 90%; /* Make them both full width */
+        margin: 0;
+    }
+
+    .description {
+        padding: 20px; /* Slightly less padding for mobile */
+        margin-top: 20px;
+    }
+}

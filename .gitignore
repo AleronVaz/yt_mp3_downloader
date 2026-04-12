@@ -1,3 +1,7 @@
 venv/
 *.mp3
 *.webm
+downloads/*.mp3
+downloads/*.webm
+__pycache__/
+.env

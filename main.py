@@ -32,6 +32,18 @@ def convert():
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-us,en;q=0.5',
+        },
+        'extractor_args': {
+            'youtube': {
+                # This tells yt-dlp to use the bgutil plugin we added to requirements
+                'po_token': ['web+'], 
+            }
+        },
+        'nocheckcertificate': True,
         # We save it into the downloads folder
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
     }

@@ -1,5 +1,17 @@
 # 🎵 YouTube to MP3 Downloader
+
 A full-stack project featuring a Python backend for audio extraction and a modern, responsive web interface.
+
+## 📸 Gallery
+
+#### Web Interface
+![Web App UI](assets/mp3_site_localrun.png)
+
+#### Terminal Performance (Local)
+![Local Success](assets/mp3_terminal.png)
+
+#### The "Cloud Wall" (Render Logs)
+![Render Error](assets/mp3_render_error.png)
 
 > [!IMPORTANT]
 > **Status: Functionally Complete / Deployment Restricted**
@@ -37,3 +49,4 @@ Since local machines use **Residential IPs**, the project works as intended when
    ```bash
    git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
    cd yt_mp3_downloader
+   ```

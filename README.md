@@ -5,13 +5,13 @@ A full-stack project featuring a Python backend for audio extraction and a moder
 ## 📸 Gallery
 
 #### Web Interface
-![Web App UI](assets/mp3_site_localrun.png)
+![Web App UI](assets/mp3_site_localrun.PNG)
 
 #### Terminal Performance (Local)
-![Local Success](assets/mp3_terminal.png)
+![Local Success](assets/mp3_terminal.PNG)
 
 #### The "Cloud Wall" (Render Logs)
-![Render Error](assets/mp3_render_error.png)
+![Render Error](assets/mp3_render_error.PNG)
 
 > [!IMPORTANT]
 > **Status: Functionally Complete / Deployment Restricted**

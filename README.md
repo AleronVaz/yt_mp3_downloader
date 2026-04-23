@@ -50,3 +50,28 @@ Since local machines use **Residential IPs**, the project works as intended when
    git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
    cd yt_mp3_downloader
    ```
+
+ ## 📱 Running on Mobile (Local Android Server)
+
+If you want to run this project on your phone (useful for bypassing cloud IP blocks), follow these steps to turn your Android device into a local web server.
+
+### 1. Install Termux
+* Download **Termux** from [F-Droid](https://f-droid.org/en/packages/com.termux/) (The Play Store version is updated, unlike the Play Store version).
+* Open Termux and run the initial setup:
+    ```bash
+    pkg update && pkg upgrade -y
+    pkg install python git ffmpeg -y
+    ```
+
+### 2. Clone & Setup
+Pull the code from this repository and install the Python requirements:
+```bash
+# Clone the repository
+git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
+cd yt_mp3_downloader
+
+# Install libraries
+pip install flask yt-dlp pytubefix
+
+#Run
+python main.py

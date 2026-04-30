@@ -1,77 +1,74 @@
-# 🎵 YouTube to MP3 Downloader
+# 🎵 YouTube to MP3 Pro (Desktop Edition)
 
-A full-stack project featuring a Python backend for audio extraction and a modern, responsive web interface.
+A professional-grade, full-stack desktop application that converts YouTube videos to high-quality MP3s. This project features a Python/Flask backend bundled into a standalone Windows Executable (`.exe`) with integrated FFmpeg processing.
 
-## 📸 Gallery
-
-#### Web Interface
+## 📸 Interface
 ![Web App UI](assets/mp3_site_localrun.PNG)
 
-#### Terminal Performance (Local)
-![Local Success](assets/mp3_terminal.PNG)
+## 🚀 Key Features
+*   **Standalone Portable EXE:** No Python installation required for the end-user.
+*   **Auto-Lifecycle Management:** Integrated **Heartbeat Logic** that automatically terminates the background server when the browser tab is closed to save system resources.
+*   **Desktop Integration:** Automatically creates a `MyDownloads` folder on the user's Desktop for easy access to files.
+*   **High-Performance Engine:** Powered by `yt-dlp` for robust extraction and `FFmpeg` for 192kbps audio conversion.
 
-#### The "Cloud Wall" (Render Logs)
-![Render Error](assets/mp3_render_error.PNG)
+---
 
-> [!IMPORTANT]
-> **Status: Functionally Complete / Deployment Restricted**
-> This application is fully operational in local development environments. However, due to YouTube's enhanced security updates in early 2026 (PO Tokens/Bot Detection), live deployment on cloud platforms like Render is currently restricted by Data Center IP blocking.
+## 🛠️ The Architecture
+This project uses a **Decoupled Desktop Architecture**. Instead of a standard GUI library, it utilizes a Flask web-server as the backend and a modern HTML/CSS/JS frontend, providing a superior UI/UX and mobile-first responsiveness.
 
-## 🚀 Project Overview
-This repository contains a dual-interface system:
-1. **CLI Tool:** A Python script for local command-line downloads (Fully Functional).
-2. **Web Interface:** A clean, mobile-responsive frontend (HTML/CSS) designed for cloud deployment.
+### Technical Highlights:
+*   **Resource Pathing:** Uses custom `resource_path` logic to handle temporary file extraction and internal pathing within the PyInstaller `_MEIPASS` environment.
+*   **Multi-Threading:** Runs a background **Watchdog Thread** as a daemon to monitor browser pings and manage the process lifecycle.
+*   **Binary Bundling:** Successfully bundles `ffmpeg.exe`, `index.html`, and `static` assets into a single-file distribution.
 
-## 🌐 Live Site
-- **Status:** Backend logic is restricted on Render due to automated bot-detection.
-- **Development Note:** The site remains hosted to demonstrate UI/UX design and API architecture.
+---
 
-## 🛠️ Tech Stack
-- **Frontend:** HTML5, CSS3 (Mobile-First Design), JavaScript.
-- **Backend:** Python 3.x, Flask.
-- **Core Engine:** `yt-dlp` / `pytubefix` & `FFmpeg`.
+## 🔍 The "Cloud vs. Residential" Challenge
+While originally designed for cloud deployment, this project evolved to tackle the 2026 YouTube security updates (PO Tokens/Bot Detection).
+*   **The Problem:** Cloud platforms (Render/AWS) face heavy Data Center IP blocking.
+*   **The Solution:** Transitioning to a Desktop App utilizes **Residential IPs**, ensuring 100% functionality and bypassing automated bot detection.
 
-## 🔍 The "Cloud vs. Bot Detection" Challenge
-During the deployment phase, the project served as a deep dive into modern web security.
-- **The Issue:** YouTube's **Proof of Origin (PO) Token** system requires interactive browser handshakes that "headless" cloud servers (Render/AWS) cannot easily provide.
-- **The Investigation:** I experimented with multiple libraries and branching strategies (see `pytube-library-change` branch) to bypass these restrictions, documenting the shift from simple scraping to advanced authentication requirements.
+---
 
-## 📂 Structure
-- `index.html`: The main dashboard for the converter.
-- `style.css`: Custom Red & White theme with mobile responsiveness.
-- `main.py`: The core Flask/Python script handling the conversion logic.
-- `requirements.txt`: List of dependencies for cloud and local environments.
+## 📂 Project Structure
+*   `main.py`: Core Flask engine & lifecycle Watchdog logic.
+*   `index.html`: Responsive Dashboard UI.
+*   `static/`: Custom CSS and frontend assets.
+*   `ffmpeg.exe`: The core conversion engine (bundled into the EXE).
+*   `main.spec`: Configuration for the PyInstaller build process.
 
-## 📦 Local Installation
-Since local machines use **Residential IPs**, the project works as intended when run on your own hardware:
+---
 
-1. **Clone the repo:**
-   ```bash
-   git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
-   cd yt_mp3_downloader
-   ```
+## 📦 How to Build (For Developers)
+If you want to compile the EXE yourself from the source:
 
- ## 📱 Running on Mobile (Local Android Server)
+1.  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
+    cd yt_mp3_downloader
+    ```
+2.  **Install Dependencies:**
+    ```bash
+    pip install flask yt-dlp
+    ```
+3.  **Run the PyInstaller Command:**
+    ```bash
+    pyinstaller --noconsole --onefile --clean --icon=app_icon.ico --add-data "index.html;." --add-data "static;static" --add-binary "ffmpeg.exe;." main.py
+    ```
 
-If you want to run this project on your phone (useful for bypassing cloud IP blocks), follow these steps to turn your Android device into a local web server.
+---
 
-### 1. Install Termux
-* Download **Termux** from [F-Droid](https://f-droid.org/en/packages/com.termux/) (The Play Store version is updated, unlike the Play Store version).
-* Open Termux and run the initial setup:
+## 📱 Legacy Support: Mobile (Termux)
+The project remains compatible as a local server on Android via **Termux**:
+1.  **Install Termux** (F-Droid version).
+2.  **Setup Environment:**
     ```bash
     pkg update && pkg upgrade -y
     pkg install python git ffmpeg -y
     ```
-
-### 2. Clone & Setup
-Pull the code from this repository and install the Python requirements:
-```bash
-# Clone the repository
-git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
-cd yt_mp3_downloader
-
-# Install libraries
-pip install flask yt-dlp pytubefix
-
-#Run
-python main.py
+3.  **Clone and Run:**
+    ```bash
+    git clone [https://github.com/AleronVaz/yt_mp3_downloader.git](https://github.com/AleronVaz/yt_mp3_downloader.git)
+    cd yt_mp3_downloader
+    python main.py
+    ```

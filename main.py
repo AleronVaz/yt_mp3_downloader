@@ -2,13 +2,26 @@ from flask import Flask, request, render_template, send_file, after_this_request
 import yt_dlp
 import os
 import time
+import sys
+import webbrowser
+from threading import Timer
 
-app = Flask(__name__, template_folder='.')
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
+app = Flask(__name__, 
+            template_folder=resource_path('.'), 
+            static_folder=resource_path('static'))
 
 # Create a downloads folder if it doesn't exist
-DOWNLOAD_FOLDER = 'downloads'
+DOWNLOAD_FOLDER = os.path.join(os.path.expanduser("~"), "Desktop", "MyDownloads")
 if not os.path.exists(DOWNLOAD_FOLDER):
     os.makedirs(DOWNLOAD_FOLDER)
+
+def open_browser():
+    webbrowser.open_new('http://127.0.0.1:5000/')
 
 @app.route('/')
 def home():
@@ -27,6 +40,7 @@ def convert():
     # Instructions for yt-dlp
     options = {
         'format': 'bestaudio/best',
+        'ffmpeg_location': resource_path('.'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -89,5 +103,6 @@ def convert():
         return f"Backend Error: {str(e)}", 500
 
 if __name__ == '__main__':
+    Timer(1.5, open_browser).start()
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='127.0.0.1', port=5000)

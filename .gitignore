@@ -5,3 +5,10 @@ downloads/*.mp3
 downloads/*.webm
 __pycache__/
 .env
+dist/
+build/
+*.spec
+__pycache__/
+.venv/
+downloads/
+MyDownloads/

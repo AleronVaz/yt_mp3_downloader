@@ -5,6 +5,8 @@ import time
 import sys
 import webbrowser
 from threading import Timer
+from threading import Thread
+import signal
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -22,6 +24,21 @@ if not os.path.exists(DOWNLOAD_FOLDER):
 
 def open_browser():
     webbrowser.open_new('http://127.0.0.1:5000/')
+
+# Global variable to track last heartbeat time
+@app.route('/heartbeat')
+def heartbeat():
+    global last_seen
+    last_seen = time.time()
+    return "OK", 200
+
+def watchdog():
+    global last_seen
+    while True:
+        time.sleep(10)  # Check every 10 seconds
+        if time.time() - last_seen > 30:  # If no heartbeat for 30 seconds
+            print("⚠️ No heartbeat detected. Shutting down server.")
+            os.kill(os.getpid(), signal.SIGTERM)  # Shutdown the server
 
 @app.route('/')
 def home():
@@ -104,5 +121,6 @@ def convert():
 
 if __name__ == '__main__':
     Timer(1.5, open_browser).start()
+    Thread(target=watchdog, daemon=True).start()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='127.0.0.1', port=5000)

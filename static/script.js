@@ -61,3 +61,7 @@ document.querySelector('.converter-box').addEventListener('submit', function(e) 
         submitBtn.disabled = false;
     });
 });
+// --- NEW FUNCTIONALITY: HEARTBEAT TO KEEP THE SERVER AWAKE ---
+setInterval(() => {
+    fetch('/heartbeat');
+}, 5000); // Send "Hi" every 5 seconds

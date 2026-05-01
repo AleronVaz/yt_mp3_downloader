@@ -1,14 +1,30 @@
+# --- Python & Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+.env
 venv/
+.venv/
+env/
+
+# --- PyInstaller (Build artifacts) ---
+build/
+dist/
+*.spec
+
+# --- Inno Setup (Installer artifacts) ---
+Output/
+*_Setup.exe
+
+# --- Local Media & Downloads ---
 *.mp3
 *.webm
-downloads/*.mp3
-downloads/*.webm
-__pycache__/
-.env
-dist/
-build/
-*.spec
-__pycache__/
-.venv/
 downloads/
 MyDownloads/
+yt_mp3_downloader/
+
+# --- System & IDE Files ---
+.DS_Store
+.vscode/
+.idea/
+*.log

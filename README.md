@@ -1,5 +1,7 @@
 # 🎵 YouTube to MP3 Pro (Desktop Edition)
 
+**DISCLAIMER: This tool is for educational purposes and personal use only. Users are responsible for complying with YouTube's Terms of Service.**
+
 A professional-grade, full-stack desktop application that converts YouTube videos to high-quality MP3s. This project features a Python/Flask backend bundled into a standalone Windows Executable (`.exe`) with integrated FFmpeg processing.
 
 ## 📸 Interface

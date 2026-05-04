@@ -18,7 +18,7 @@ app = Flask(__name__,
             static_folder=resource_path('static'))
 
 # Create a downloads folder if it doesn't exist
-DOWNLOAD_FOLDER = os.path.join(os.path.expanduser("~"), "Desktop", "MyDownloads")
+DOWNLOAD_FOLDER = os.path.join(os.path.expanduser("~"), "Downloads")
 if not os.path.exists(DOWNLOAD_FOLDER):
     os.makedirs(DOWNLOAD_FOLDER)
 

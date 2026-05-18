@@ -11,6 +11,7 @@ body {
     align-items: center; /* Centers content horizontally */
     justify-content: flex-start; /* Aligns content to the top */
 }
+
 .container {
     text-align: center;
     background-color: white;
@@ -19,13 +20,12 @@ body {
     border-radius: 15px;
     border: 3px solid #ff0000;
     box-shadow: 0px 8px 30px rgba(255, 0, 0, 0.4);
-    max-width: 600px;
+    max-width: 650px; /* Adjusted back to a tight, crisp look */
     width: 100%;
     margin-top: 50px;
     align-items: center;
     display: flex;
     flex-direction: column;
-    
 }
 
 .container h1 {
@@ -34,23 +34,81 @@ body {
     color: #cc0000; /* Darker red for the title text */
 }
 
-
 .container p {
     font-size: 1rem;
     margin-bottom: 2rem;
     color: #555; 
 }
 
-/* 5. The Converter Form Area (Input + Button) */
+/* 5. The Converter Form Area (Stacked Layout) */
 .converter-box {
-    display: flex; /* Lines up input and button horizontally */
-    gap: 10px; /* Space between them */
+    display: flex;
+    flex-direction: column; /* Stacks input row above selection row */
+    gap: 12px; /* Uniform spacing between top and bottom */
     margin-bottom: 1.5rem;
     width: 100%;
 }
 
+/* Top Row Layout */
+.input-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Bottom Dropdown Row Layout */
+.selection-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* Aligns dropdowns neatly to the center */
+    width: 100%;
+}
+
+/* Custom Dropdown Styling */
+/* Custom Dropdown Styling */
+.custom-select {
+    padding: 10px 30px 10px 14px; /* Extra right padding for custom arrow */
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: #000000; /* White text */
+    border: 2px solid #3a3939; /* Darker border */
+    border-radius: 8px;
+    background-color: #ffffff; /* Matches your About box background */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    
+    /* Sleek custom dropdown arrow replacement */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ff0000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+/* Subtle styling for the native menu options */
+.custom-select option {
+    background-color: #252525;
+    color: #ffffff;
+    font-family: inherit;
+    padding: 10px;
+}
+
+/* Hover and Focus States */
+.custom-select:hover {
+    background-color: #f3e9e9;
+    border-color: #ff0000; /* Glow red on hover */
+}
+
+.custom-select:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
 /* 6. Input Field (Enter Youtube URL) */
-.converter-box input {
+.input-row input {
     flex-grow: 1; /* Makes input take remaining space */
     padding: 12px;
     border: 2px solid #ccc;
@@ -60,14 +118,14 @@ body {
 }
 
 /* 7. Input focus state (When user clicks in the box) */
-.converter-box input:focus {
+.input-row input:focus {
     outline: none;
     border-color: #ff0000; /* Highlight in red when active */
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
 /* 8. Download Button (Convert To MP3) */
-.converter-box button {
+.input-row button {
     padding: 12px 24px;
     background-color: #ff0000; /* Red button background */
     color: white; /* White text on button */
@@ -76,16 +134,20 @@ body {
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition on hover */
-    
-    
+    white-space: nowrap; /* Prevents text from breaking into two lines */
+    transition: all 0.2s ease;
 }
 
 /* 9. Button hover state */
-.converter-box button:hover {
+.input-row button:hover {
     background-color: #b30000; /* Darker red on hover */
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
+
+.input-row button:active {
+    transform: translateY(0);
+}
+
 .footer-note {
     font-size: 1rem;
     color: #777; 
@@ -93,7 +155,7 @@ body {
 }
 
 .description {
-    max-width: 700px;
+    max-width: 650px;
     width: 100%;
     margin-top: 35px; /* Space between the white box and the About text */
     text-align: left; 
@@ -103,6 +165,7 @@ body {
     padding: 10px 35px;
     box-sizing: border-box;
 }
+
 .description h2 {
     color: #ff0000;
     margin-top: 0;
@@ -150,19 +213,15 @@ body {
         font-size: 1.5rem; /* Smaller title so it doesn't wrap weirdly */
     }
 
-    .converter-box {
-        flex-direction: column; /* Stack Input and Button vertically */
-        gap: 15px;
+    .input-row {
+        flex-direction: column; /* Stack Input and Button vertically on small screens */
+        gap: 12px;
     }
 
-    .converter-box input, 
-    .converter-box button {
-        width: 90%; /* Make them both full width */
-        margin: 0;
-    }
-
-    .description {
-        padding: 20px; /* Slightly less padding for mobile */
-        margin-top: 20px;
+    .custom-select,
+    .input-row input, 
+    .input-row button {
+        width: 100%; /* Make them all uniform width on mobile profiles */
+        box-sizing: border-box;
     }
 }

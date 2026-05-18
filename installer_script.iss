@@ -3,7 +3,7 @@
 ; Non-commercial use only
 
 #define MyAppName "YouTube to MP3"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "2.0.0"
 #define MyAppPublisher "Aleron"
 #define MyAppURL "https://www.example.com/"
 #define MyAppExeName "main.exe"
@@ -49,6 +49,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "F:\games\VS NOTES\Mp3_downloader\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "F:\games\VS NOTES\Mp3_downloader\ffmpeg.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "F:\games\VS NOTES\Mp3_downloader\ffprobe.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "F:\games\VS NOTES\Mp3_downloader\index.html"; DestDir: "{app}"; Flags: ignoreversion
 Source: "F:\games\VS NOTES\Mp3_downloader\static\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

@@ -26,6 +26,8 @@ def open_browser():
     webbrowser.open_new('http://127.0.0.1:5000/')
 
 # Global variable to track last heartbeat time
+last_seen = time.time()
+
 @app.route('/heartbeat')
 def heartbeat():
     global last_seen
@@ -47,22 +49,18 @@ def home():
 @app.route('/convert', methods=['POST'])
 def convert():
     youtube_url = request.form.get('youtube_url')
+    format_type = request.form.get('format_type')
+    quality = request.form.get('quality')
     
     if not youtube_url:
         return "Error: No URL provided", 400
 
     print(f"--- SERVER LOG ---")
-    print(f"URL Received: {youtube_url}")
+    print(f"URL: {youtube_url} | Format: {format_type} | Quality: {quality}")
 
     # Instructions for yt-dlp
     options = {
-        'format': 'bestaudio/best',
         'ffmpeg_location': resource_path('.'),
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -70,29 +68,49 @@ def convert():
         },
         'extractor_args': {
             'youtube': {
-                # This tells yt-dlp to use the bgutil plugin we added to requirements
                 'po_token': ['web+'], 
             }
         },
         'nocheckcertificate': True,
-        # We save it into the downloads folder
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
     }
+
+    # DYNAMIC FORMAT LOGIC
+    if format_type == 'mp3':
+        options.update({
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192' if quality == 'high' else '128',
+            }],
+        })
+    else:  # MP4 Logic
+        if quality == 'high':
+            options.update({
+                'format': 'bestvideo[vcodec^=avc1]+bestaudio[acodec^=mp4a]/best[ext=mp4]/best',
+                'merge_output_format': 'mp4', # Forces the final file to be MP4
+            })
+        else:
+            options['format'] = 'worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
     
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
             # 1. Download the file
             info = ydl.extract_info(youtube_url, download=True)
-            # 2. Get the actual filename created (with .mp3 extension)
             temp_filename = ydl.prepare_filename(info)
-            base, ext = os.path.splitext(temp_filename)
-            final_filename = base + ".mp3"
+            
+            # 2. Get the correct final filename
+            if format_type == 'mp3':
+                base, ext = os.path.splitext(temp_filename)
+                final_filename = base + ".mp3"
+            else:
+                final_filename = temp_filename.rsplit('.', 1)[0] + '.mp4'
 
             @after_this_request
             def remove_file(response):
                 try:
-                    # We wait until the request is finished, then delete the file
-                    time.sleep(1)  # Just to ensure the file is not in use
+                    time.sleep(1)
                     if os.path.exists(final_filename):
                         os.remove(final_filename)
                         print(f"🗑️ Successfully deleted: {final_filename}")
@@ -109,10 +127,7 @@ def convert():
                 download_name=os.path.basename(final_filename)
             )
 
-            # Add the "Permission Header" so JS can read the filename
-            # Without this, your JS might just name everything "download.mp3"
             response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
-            
             return response
 
     except Exception as e:
@@ -122,5 +137,4 @@ def convert():
 if __name__ == '__main__':
     Timer(1.5, open_browser).start()
     Thread(target=watchdog, daemon=True).start()
-    port = int(os.environ.get("PORT", 5000))
     app.run(host='127.0.0.1', port=5000)

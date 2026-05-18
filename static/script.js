@@ -2,10 +2,15 @@ document.querySelector('.converter-box').addEventListener('submit', function(e) 
     e.preventDefault();
 
     const urlInput = document.querySelector('input[name="youtube_url"]');
-    const youtubeUrl = urlInput.value;
+    const formatSelect = document.querySelector('select[name="format_type"]');
+    const qualitySelect = document.querySelector('select[name="quality"]');
     const submitBtn = document.querySelector('button[type="submit"]');
 
-    submitBtn.innerText = "Converting... Please wait";
+    const youtubeUrl = urlInput.value;
+    const formatType = formatSelect.value;
+    const quality = qualitySelect.value;
+
+    submitBtn.innerText = `Converting to ${formatType.toUpperCase()}... Please wait`;
     submitBtn.style.backgroundColor = "#b30000";
     submitBtn.disabled = true;
 
@@ -14,14 +19,17 @@ document.querySelector('.converter-box').addEventListener('submit', function(e) 
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({ 'youtube_url': youtubeUrl })
+        body: new URLSearchParams({ 
+            'youtube_url': youtubeUrl,
+            'format_type': formatType,
+            'quality': quality
+        })
     })
     .then(response => {
         if (!response.ok) throw new Error('Conversion failed on server.');
 
-        // --- NEW LOGIC: GRABBING THE FILENAME FROM HEADERS ---
         const disposition = response.headers.get('Content-Disposition');
-        let filename = "download.mp3"; // Fallback if name is missing
+        let filename = `download.${formatType}`; 
         
         if (disposition && disposition.indexOf('attachment') !== -1) {
             const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
@@ -30,19 +38,13 @@ document.querySelector('.converter-box').addEventListener('submit', function(e) 
                 filename = matches[1].replace(/['"]/g, '');
             }
         }
-        // We return both the data (blob) and the filename to the next .then()
         return response.blob().then(blob => ({ blob, filename }));
-        // ---------------------------------------------------
     })
-    .then(({ blob, filename }) => { // Catch both blob and filename
+    .then(({ blob, filename }) => { 
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        
-        // --- CHANGED HERE ---
-        // Replacing the hardcoded "Aleron_..." name with the variable 'filename'
         a.download = filename; 
-        // --------------------
 
         document.body.appendChild(a);
         a.click();
@@ -51,17 +53,17 @@ document.querySelector('.converter-box').addEventListener('submit', function(e) 
         submitBtn.innerText = "Success! Convert Another?";
         submitBtn.style.backgroundColor = "#28a745";
         submitBtn.disabled = false;
-    
+        urlInput.value = ""; 
     })
     .catch(error => {
         console.error('Error:', error);
         alert("Make sure you have FFmpeg installed and the URL is valid!");
-        submitBtn.innerText = "Convert To MP3";
+        submitBtn.innerText = "Convert Now";
         submitBtn.style.backgroundColor = "#ff0000";
         submitBtn.disabled = false;
     });
 });
-// --- NEW FUNCTIONALITY: HEARTBEAT TO KEEP THE SERVER AWAKE ---
+
 setInterval(() => {
     fetch('/heartbeat');
-}, 5000); // Send "Hi" every 5 seconds
+}, 5000);

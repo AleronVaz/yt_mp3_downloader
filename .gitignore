@@ -28,3 +28,5 @@ yt_mp3_downloader/
 .vscode/
 .idea/
 *.log
+ffmpeg.exe
+ffprobe.exe
